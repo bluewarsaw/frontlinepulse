@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ingestGpsjam } from "@/lib/ingest/gpsjam";
 import { ingestGdelt } from "@/lib/ingest/gdelt";
+import { ingestCertPl } from "@/lib/ingest/certpl";
+import { ingestEuvsDisinfo } from "@/lib/ingest/euvsdisinfo";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -29,6 +31,16 @@ export async function POST(req: NextRequest) {
     results.gdelt = await ingestGdelt(8);
   } catch (err) {
     results.gdelt = { error: (err as Error).message };
+  }
+  try {
+    results.certpl = await ingestCertPl();
+  } catch (err) {
+    results.certpl = { error: (err as Error).message };
+  }
+  try {
+    results.euvsdisinfo = await ingestEuvsDisinfo();
+  } catch (err) {
+    results.euvsdisinfo = { error: (err as Error).message };
   }
   return NextResponse.json(results);
 }

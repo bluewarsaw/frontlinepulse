@@ -25,6 +25,8 @@ kierunku, w którym przemieszcza się fala danego typu zagrożenia.
 | Kategoria | Źródło | Status |
 |---|---|---|
 | Zakłócenia GPS / EW | [gpsjam.org](https://gpsjam.org) — dzienny dataset H3 (CC-BY, John Wiseman / ADS-B Exchange) | realne dane |
+| Cyber (kampanie, malware, phishing) | [CERT Polska](https://cert.pl/rss.xml) — oficjalny RSS (bez CVE flood) | realne dane |
+| Dezinformacja | [EUvsDisinfo](https://euvsdisinfo.eu/feed/) — RSS analiz/debunków (filtr flanki NATO) | realne dane |
 | Dezinformacja, drony, cyber, granica (doniesienia medialne) | [GDELT 2.0](https://www.gdeltproject.org) — strumień zdarzeń co 15 min, geotagowany | realne dane |
 | Cyber, drony, granica, infrastruktura (szczegółowe) | seed oparty na rzeczywistych, publicznie opisywanych wzorcach incydentów 2024–2026 | dane poglądowe |
 

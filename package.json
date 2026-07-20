@@ -13,6 +13,8 @@
     "ingest": "tsx scripts/ingest.ts",
     "ingest:gpsjam": "tsx scripts/ingest.ts gpsjam",
     "ingest:gdelt": "tsx scripts/ingest.ts gdelt",
+    "ingest:certpl": "tsx scripts/ingest.ts certpl",
+    "ingest:euvsdisinfo": "tsx scripts/ingest.ts euvsdisinfo",
     "ingest:seed": "tsx scripts/ingest.ts seed",
     "package:seohost": "bash deploy/package-seohost.sh",
     "db:init": "psql \"$DATABASE_URL\" -f db/init/001_schema.sql",

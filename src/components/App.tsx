@@ -22,7 +22,8 @@ export default function App() {
   // punkt odniesienia "teraz" ustalany raz na montaż (czysty render)
   const [nowMs] = useState(() => Math.floor(Date.now() / 300000) * 300000);
   const [hoursBack, setHoursBack] = useState(0);
-  const [windowHours, setWindowHours] = useState(48);
+  // Domyślnie 7 dni — seed/GPS często nie mieszczą się w 48h od ostatniego ingestu
+  const [windowHours, setWindowHours] = useState(168);
   const [activeCategories, setActiveCategories] = useState<Set<IncidentCategory>>(
     new Set(CATEGORIES)
   );

@@ -1,9 +1,11 @@
 import { ingestGpsjam } from "../src/lib/ingest/gpsjam";
 import { ingestGdelt } from "../src/lib/ingest/gdelt";
+import { ingestCertPl } from "../src/lib/ingest/certpl";
+import { ingestEuvsDisinfo } from "../src/lib/ingest/euvsdisinfo";
 import { seedIncidents } from "../src/lib/ingest/seed";
 import { closeDb } from "../src/lib/db";
 
-const only = process.argv[2]; // gpsjam | gdelt | seed | (brak = wszystko)
+const only = process.argv[2]; // gpsjam | gdelt | seed | certpl | euvsdisinfo | (brak = wszystko)
 
 async function main() {
   if (!only || only === "seed") {
@@ -12,7 +14,6 @@ async function main() {
   }
 
   if (!only || only === "gpsjam") {
-    // ostatnie 7 dni danych (dla suwaka czasu); brakujące dni pomijamy
     for (let i = 1; i <= 7; i++) {
       const day = new Date(Date.now() - (i + 0.5) * 24 * 3600 * 1000)
         .toISOString()
@@ -29,9 +30,21 @@ async function main() {
   }
 
   if (!only || only === "gdelt") {
-    const files = Number(process.argv[3] ?? 96); // 96 plików x 15 min = 24h
+    const files = Number(process.argv[3] ?? 96);
     const r = await ingestGdelt(files);
     console.log(`[gdelt]  przeskanowane zdarzenia: ${r.scanned}, nowe: ${r.inserted}`);
+  }
+
+  if (!only || only === "certpl") {
+    const r = await ingestCertPl();
+    console.log(`[certpl] przeskanowane: ${r.scanned}, zapisane: ${r.inserted}`);
+  }
+
+  if (!only || only === "euvsdisinfo") {
+    const r = await ingestEuvsDisinfo();
+    console.log(
+      `[euvsdisinfo] przeskanowane: ${r.scanned}, zapisane: ${r.inserted}`
+    );
   }
 
   await closeDb();

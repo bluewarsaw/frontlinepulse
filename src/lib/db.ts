@@ -106,8 +106,10 @@ export async function withTransaction<T>(
         const rows = (await tx.unsafe(
           text,
           params as never[]
-        )) as Record<string, unknown>[];
-        return { rows: rows as never[], rowCount: rows.length };
+        )) as Record<string, unknown>[] & { count?: number };
+        const rowCount =
+          typeof rows.count === "number" ? rows.count : rows.length;
+        return { rows: rows as never[], rowCount };
       },
     };
     return fn(client);
