@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# lokalna baza danych
+db/pgdata/
+db/pg.log
+
+# paczka do wdrożenia na seohost
+deploy/dist-seohost/
+deploy/frontline-seohost.tar.gz
+deploy/env-for-seohost.env

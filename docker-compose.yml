@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: frontline-db
+    environment:
+      POSTGRES_USER: frontline
+      POSTGRES_PASSWORD: frontline
+      POSTGRES_DB: frontline
+    ports:
+      - "5433:5432"
+    volumes:
+      - frontline-pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U frontline -d frontline"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  frontline-pgdata:

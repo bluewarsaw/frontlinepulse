@@ -2,25 +2,42 @@
   "name": "frontline",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ingest": "tsx scripts/ingest.ts",
+    "ingest:gpsjam": "tsx scripts/ingest.ts gpsjam",
+    "ingest:gdelt": "tsx scripts/ingest.ts gdelt",
+    "ingest:seed": "tsx scripts/ingest.ts seed",
+    "package:seohost": "bash deploy/package-seohost.sh",
+    "db:init": "psql \"$DATABASE_URL\" -f db/init/001_schema.sql",
+    "db:start": "/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D ./db/pgdata -o '-p 5433' -l ./db/pg.log start",
+    "db:stop": "/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D ./db/pgdata stop"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "h3-js": "^4.5.0",
+    "maplibre-gl": "^5.24.0",
     "next": "16.2.10",
+    "postgres": "^3.4.7",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
+    "tsx": "^4.23.0",
     "typescript": "^5"
   }
 }
